@@ -6,8 +6,8 @@ public class CarSystem {
     private double angle;
 
     private static void run(Direction[] directions) {
-        for(Direction i: directions){
-            switch(i){
+        for(Direction direct: directions){
+            switch(direct){
                 case FORWARD:
                     out.print("Moving forward"); break;
                 case BACKWARD:
