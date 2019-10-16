@@ -10,14 +10,14 @@ public class Vector2d {
     }
 
     public boolean precedes(Vector2d other){
-        if(this.x <= other.x && this.x <= other.x)
+        if(this.x <= other.x && this.y <= other.y)
             return true;
         else
             return false;
     }
 
     public boolean follows(Vector2d other){
-        if(this.x >= other.x && this.x >= other.x)
+        if(this.x >= other.x && this.y >= other.y)
             return true;
         else
             return false;
@@ -54,7 +54,7 @@ public class Vector2d {
         }
         else
             return false;
-    }
+}
 
     @Override
     public String toString(){
