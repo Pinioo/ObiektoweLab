@@ -1,8 +1,6 @@
 import org.junit.Test;
 import agh.po.lab2.*;
 
-import java.util.Map;
-
 import static org.junit.Assert.*;
 
 public class MapDirectionTest {
