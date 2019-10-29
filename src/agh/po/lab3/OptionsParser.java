@@ -2,11 +2,11 @@ package agh.po.lab3;
 
 import agh.po.lab2.MoveDirection;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class OptionsParser {
     public static MoveDirection[] parse(String[] input){
-        ArrayList<MoveDirection> directsParse = new ArrayList<>();
+        LinkedList<MoveDirection> directsParse = new LinkedList<>();
         for(String direct: input){
             switch(direct){
                 case "f":
@@ -24,7 +24,8 @@ public class OptionsParser {
                 default: break;
             }
         }
-        Object[] tmp = directsParse.toArray();
-        return (MoveDirection[])tmp;
+        MoveDirection[] tmp = new MoveDirection[directsParse.size()];
+        directsParse.toArray(tmp);
+        return tmp;
     }
 }

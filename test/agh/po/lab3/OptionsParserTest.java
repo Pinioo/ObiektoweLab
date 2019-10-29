@@ -8,6 +8,15 @@ import static org.junit.Assert.*;
 public class OptionsParserTest {
     @Test
     public void testParse(){
-        assertArrayEquals(new MoveDirection[]{MoveDirection.FORWARD}, OptionsParser.parse(new String[]{"t", "gat", "f"}));
+        assertArrayEquals(
+                new MoveDirection[]{
+                        MoveDirection.FORWARD,
+                        MoveDirection.BACKWARD,
+                        MoveDirection.LEFT,
+                        MoveDirection.RIGHT,
+                        MoveDirection.RIGHT,
+                        MoveDirection.LEFT},
+                OptionsParser.parse(new String[]{"t", "gat", "f", "backward", "left", "r", "right", "l"})
+        );
     }
 }

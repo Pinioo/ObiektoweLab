@@ -1,11 +1,32 @@
 package agh.po.lab3;
 import agh.po.lab2.*;
+import agh.po.lab4.IWorldMap;
+import agh.po.lab4.RectangularMap;
 
 public class Animal {
     private MapDirection direction = MapDirection.NORTH;
     private Vector2d position = new Vector2d(2,2);
-    final private Vector2d lowerLeftMax = new Vector2d(0,0);
-    final private Vector2d upperRightMax = new Vector2d(4,4);
+    private IWorldMap map = new RectangularMap(4,4);
+
+    public Animal(){
+    }
+
+    public Animal(IWorldMap map){
+        this.map = map;
+    }
+
+    public Animal(IWorldMap map, Vector2d initialPosition){
+        this.map = map;
+        this.position = initialPosition;
+    }
+
+    public Vector2d getPosition(){
+        return this.position;
+    }
+
+    public MapDirection getDirection(){
+        return this.direction;
+    }
 
     public void move(MoveDirection direction){
         Vector2d unitVector;
@@ -18,18 +39,14 @@ public class Animal {
         }
 
         Vector2d newPosition = this.position.add(unitVector);
-        if(newPosition.follows(lowerLeftMax) && newPosition.precedes(upperRightMax)) {
+        if(this.map.canMoveTo(newPosition)) {
             this.position = newPosition;
         }
     }
 
     @Override
     public String toString(){
-        return String.format(
-                "Position: %s, Direction: %s",
-                position,
-                direction
-        );
+        return this.direction.getSymbol();
     }
 
 

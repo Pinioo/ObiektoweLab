@@ -1,46 +1,41 @@
 package agh.po.lab2;
 
+import java.util.Map;
+
 public enum MapDirection {
-    NORTH, EAST, SOUTH, WEST;
+    NORTH(new Vector2d(0,1), "Północ", "^"),
+    EAST(new Vector2d(1,0), "Wschód", ">"),
+    SOUTH(new Vector2d(0, -1), "Południe", "v"),
+    WEST(new Vector2d(-1, 0), "Zachód", "<");
+
+    private Vector2d unitVector;
+    private String stringForm;
+    private String symbol;
+
+    MapDirection(Vector2d unitVector, String stringForm, String symbol){
+        this.unitVector = unitVector;
+        this.stringForm = stringForm;
+        this.symbol = symbol;
+    }
 
     public MapDirection next(){
-        switch(this){
-            case EAST: return SOUTH;
-            case WEST: return NORTH;
-            case NORTH: return EAST;
-            case SOUTH: return WEST;
-            default: return null;
-        }
+        return MapDirection.values()[(this.ordinal() + 1) % 4];
     }
 
     public MapDirection previous(){
-        switch(this){
-            case EAST: return NORTH;
-            case WEST: return SOUTH;
-            case NORTH: return WEST;
-            case SOUTH: return EAST;
-            default: return null;
-        }
+        return MapDirection.values()[(this.ordinal() + 3) % 4];
     }
 
     public Vector2d toUnitVector(){
-        switch(this){
-            case EAST: return new Vector2d(1,0);
-            case WEST: return new Vector2d(-1, 0);
-            case NORTH: return new Vector2d(0,1);
-            case SOUTH: return new Vector2d(0, -1);
-            default: return null;
-        }
+        return this.unitVector;
     }
 
     @Override
     public String toString(){
-        switch(this){
-            case EAST: return "Wschód";
-            case WEST: return "Zachód";
-            case NORTH: return "Północ";
-            case SOUTH: return "Południe";
-            default: return null;
-        }
+        return this.stringForm;
+    }
+
+    public String getSymbol() {
+        return this.symbol;
     }
 }

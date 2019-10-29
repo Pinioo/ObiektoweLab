@@ -12,20 +12,24 @@ public class Vector2dTest {
 
     @Test
     public void testPrecedes(){
-        assertEquals(true, lowerLeft.precedes(upperRight));
-        assertEquals(true, upperLeft.precedes(upperRight));
-        assertEquals(true, lowerRight.precedes(upperRight));
-        assertEquals(false, upperRight.precedes(lowerLeft));
-        assertEquals(true, upperRight.precedes(upperRight));
+        assertTrue(lowerLeft.precedes(upperRight));
+        assertTrue(upperLeft.precedes(upperRight));
+        assertTrue(lowerRight.precedes(upperRight));
+        assertTrue(upperRight.precedes(upperRight));
+        assertFalse(upperRight.precedes(lowerLeft));
+        assertFalse(upperRight.precedes(upperLeft));
+        assertFalse(upperRight.precedes(lowerRight));
     }
 
     @Test
     public void testFollows(){
-        assertEquals(true, lowerRight.follows(lowerLeft));
-        assertEquals(false, upperLeft.follows(upperRight));
-        assertEquals(true, lowerRight.follows(lowerLeft));
-        assertEquals(true, upperRight.follows(lowerLeft));
-        assertEquals(true, upperRight.follows(upperRight));
+        assertTrue(lowerRight.follows(lowerLeft));
+        assertTrue(lowerRight.follows(lowerLeft));
+        assertTrue(upperRight.follows(lowerLeft));
+        assertTrue(upperRight.follows(upperRight));
+        assertFalse(upperLeft.follows(upperRight));
+        assertFalse(lowerLeft.follows(upperRight));
+        assertFalse(lowerRight.follows(upperRight));
     }
 
     @Test
@@ -62,6 +66,7 @@ public class Vector2dTest {
 
     @Test
     public void testToString() {
-        assertEquals("(1,2)", (new Vector2d(1,2)).toString());
+        assertEquals("(1,1)", upperRight.toString());
+        assertEquals("(-1,1)", upperLeft.toString());
     }
 }
