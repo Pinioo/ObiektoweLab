@@ -21,6 +21,14 @@ public interface IWorldMap {
     boolean canMoveTo(Vector2d position);
 
     /**
+     * Actions to take if any animal moves.
+     *
+     * @param (animal, oldPosition, newPosition)
+     *            New position for animal.
+     */
+    void animalMoved(Animal animal, Vector2d oldPostition, Vector2d newPosition);
+
+    /**
      * Place a animal on the map.
      *
      * @param animal
@@ -56,5 +64,9 @@ public interface IWorldMap {
      *            The position of the object.
      * @return Object or null if the position is not occupied.
      */
+    Vector2d getMaxLowerLeft();
+
+    Vector2d getMaxUpperRight();
+
     Object objectAt(Vector2d position);
 }

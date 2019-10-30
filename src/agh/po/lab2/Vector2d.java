@@ -1,5 +1,8 @@
 package agh.po.lab2;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Vector2d {
     final public int x;
     final public int y;
