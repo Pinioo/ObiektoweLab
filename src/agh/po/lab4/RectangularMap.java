@@ -10,17 +10,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RectangularMap implements IWorldMap {
-    final private int width;
-    final private int height;
-
     private Vector2d maxUpperRight;
     private Vector2d maxLowerLeft;
 
     private List<Animal> animalsList = new LinkedList<>();
 
     public RectangularMap(int width, int height){
-        this.width = width;
-        this.height = height;
         this.maxUpperRight = new Vector2d(width - 1, height - 1);
         this.maxLowerLeft = new Vector2d(0,0);
     }

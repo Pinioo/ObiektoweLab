@@ -6,10 +6,8 @@ import agh.po.lab4.RectangularMap;
 public class Animal {
     private MapDirection direction = MapDirection.NORTH;
     private Vector2d position = new Vector2d(2,2);
-    private IWorldMap map = new RectangularMap(4,4);
+    private IWorldMap map;
 
-    public Animal(){
-    }
 
     public Animal(IWorldMap map){
         this.map = map;
