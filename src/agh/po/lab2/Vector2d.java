@@ -61,5 +61,9 @@ public class Vector2d {
         return "(" + this.x + "," + this.y + ")";
     }
 
-
+    @Override
+    public int hashCode() {
+        int tmp = (y +  ((x+1)/2));
+        return x + (tmp * tmp);
+    }
 }

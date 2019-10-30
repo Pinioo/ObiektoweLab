@@ -47,5 +47,8 @@ public class Animal {
         return this.direction.getSymbol();
     }
 
-
+    @Override
+    public int hashCode(){
+        return this.position.hashCode();
+    }
 }
