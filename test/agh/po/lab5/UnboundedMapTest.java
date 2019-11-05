@@ -25,21 +25,18 @@ public class UnboundedMapTest {
 
         map = new UnboundedMap(testObstacle);
 
-        testSubject = new Animal[3];
+        testSubject = new Animal[2];
         testSubject[0] = new Animal(map, new Vector2d(3,4));
         testSubject[1] = new Animal(map, new Vector2d(0,-2));
-        testSubject[2] = new Animal(map, new Vector2d(0,-1));
 
         map.place(testSubject[0]);
         map.place(testSubject[1]);
-        map.place(testSubject[2]);
     }
 
     @Test
     public void objectAtTest() {
         assertEquals(testSubject[0], map.objectAt(new Vector2d(3,4)));
         assertEquals(testSubject[1], map.objectAt(new Vector2d(0,-2)));
-        assertEquals(testSubject[2], map.objectAt(new Vector2d(0,-1)));
 
         assertTrue(map.objectAt(new Vector2d(2,2)) instanceof Rock);
         assertTrue(map.objectAt(new Vector2d(-1,-1)) instanceof Rock);
@@ -62,19 +59,31 @@ public class UnboundedMapTest {
         assertFalse(map.place(new Animal(map, new Vector2d(2,2))));
 
         map.run(OptionsParser.parse(new String[]{
-                "f", "r", "l",
-                "r", "r", "f",
-                "f", "r", "f"
+                "f", "f",
+                "r", "l",
+                "f", "f"
         }));
 
         assertEquals(new Vector2d(4,5), map.getMaxUpperRight());
-        assertEquals(new Vector2d(0,-2), testSubject[1].getPosition());
+        assertEquals(new Vector2d(0,-1), testSubject[1].getPosition());
 
         map.run(OptionsParser.parse(new String[]{
-                "r", "r", "l",
-                "f"
+                "r", "l",
+                "f", "l",
+                "f", "l",
+                "f", "l",
+                "f", "l",
+                "f", "l",
+                "f", "l",
+                "r", "l",
+                "f", "l",
+                "f", "l",
+                "f", "l",
+                "f", "l",
+                "f", "l",
         }));
 
-        assertEquals(new Vector2d(4,4), map.getMaxUpperRight());
+        assertEquals(new Vector2d(2,2), map.getMaxUpperRight());
+        assertEquals(new Vector2d(1,-1), testSubject[0].getPosition());
     }
 }
