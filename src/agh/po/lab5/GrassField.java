@@ -17,11 +17,21 @@ public class GrassField extends AbstractWorldMap {
             this.addRandGrassInSquare();
     }
 
+    public void addGrass(Grass toAdd) throws IllegalArgumentException{
+        if(this.objectAt(toAdd.getPosition()) != null)
+            throw new IllegalArgumentException("Grass cannot be placed at position " + toAdd.getPosition().toString());
+        this.elementsHashMap.put(toAdd.getPosition(), toAdd);
+    }
+
+    public void addGrass(Vector2d pos) throws IllegalArgumentException{
+        this.addGrass(new Grass(pos));
+    }
+
     private void addRandGrassInSquare(){
         while(true){
             Grass newGrass = Grass.randGrassInSquare(0, (int)Math.sqrt(this.grassCount*10));
             if(this.objectAt(newGrass.getPosition()) == null) {
-                this.elementsHashMap.put(newGrass.getPosition(), newGrass);
+                addGrass(newGrass);
                 break;
             }
         }

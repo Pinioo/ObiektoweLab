@@ -41,9 +41,6 @@ public class RectangularMapTest {
 
     @Test
     public void place() {
-        assertFalse(map.place(new Animal(map, new Vector2d(2,2))));
-        assertFalse(map.place(new Animal(map, new Vector2d(11,2))));
-        assertTrue(map.place(new Animal(map, new Vector2d(0,5))));
         assertTrue(map.isOccupied(new Vector2d(0,5)));
     }
 

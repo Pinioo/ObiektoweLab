@@ -33,7 +33,7 @@ public class Animal implements IMapElement {
             this.position = newPosition;
         }
         else{
-          throw new IllegalArgumentException("Animal can't move to position " + this.position.toString());
+            throw new IllegalArgumentException("Animal cannot move to position " + this.position.toString());
         }
     }
 

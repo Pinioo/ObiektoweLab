@@ -24,13 +24,13 @@ public abstract class AbstractWorldMap implements IWorldMap {
     }
 
     @Override
-    public boolean place(Animal animal) throws IllegalArgumentException {
+    public void place(Animal animal) throws IllegalArgumentException {
         if(this.canMoveTo(animal.getPosition())) {
             this.animalsList.add(animal);
             this.elementsHashMap.put(animal.getPosition(), animal);
-            return true;
         }
-        throw new IllegalArgumentException("Animal couldn't be placed; position " + animal.getPosition().toString() + " is already occupied");
+        else
+            throw new IllegalArgumentException("Animal cannot be placed at position " + animal.getPosition().toString());
     }
 
     @Override

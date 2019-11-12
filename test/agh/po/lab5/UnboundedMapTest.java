@@ -56,8 +56,6 @@ public class UnboundedMapTest {
         assertEquals(new Vector2d(-1,-2), map.getMaxLowerLeft());
         assertEquals(new Vector2d(3,4), map.getMaxUpperRight());
 
-        assertFalse(map.place(new Animal(map, new Vector2d(2,2))));
-
         map.run(OptionsParser.parse(new String[]{
                 "f", "f",
                 "r", "l",
