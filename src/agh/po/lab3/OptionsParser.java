@@ -5,7 +5,7 @@ import agh.po.lab2.MoveDirection;
 import java.util.LinkedList;
 
 public class OptionsParser {
-    public static MoveDirection[] parse(String[] input){
+    public static MoveDirection[] parse(String[] input) throws IllegalArgumentException{
         LinkedList<MoveDirection> directsParse = new LinkedList<>();
         for(String direct: input){
             switch(direct){
@@ -21,7 +21,8 @@ public class OptionsParser {
                 case "l":
                     case "left": directsParse.add(MoveDirection.LEFT); break;
 
-                default: break;
+                default:
+                    throw new IllegalArgumentException(direct + " is not a valid argument");
             }
         }
         MoveDirection[] tmp = new MoveDirection[directsParse.size()];

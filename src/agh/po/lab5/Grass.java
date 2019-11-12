@@ -3,10 +3,10 @@ package agh.po.lab5;
 import agh.po.lab2.Vector2d;
 import agh.po.lab4.IWorldMap;
 
-public class Rock implements IMapElement {
+public class Grass implements IMapElement {
     private Vector2d position;
 
-    public Rock(Vector2d initialPosition){
+    public Grass(Vector2d initialPosition){
         this.position = initialPosition;
     }
 
@@ -14,8 +14,12 @@ public class Rock implements IMapElement {
         return this.position;
     }
 
+    static protected Grass randGrassInSquare(int from, int to){
+        return new Grass(Vector2d.randInSquare(from, to));
+    }
+
     @Override
     public String toString(){
-        return "r";
+        return "*";
     }
 }

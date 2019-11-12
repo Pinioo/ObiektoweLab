@@ -15,7 +15,7 @@ import java.util.List;
 public abstract class AbstractWorldMap implements IWorldMap {
     protected LinkedList<Animal> animalsList = new LinkedList<>();
 
-    public HashMap<Vector2d, IMapElement> elementsHashMap = new HashMap<>();
+    protected HashMap<Vector2d, IMapElement> elementsHashMap = new HashMap<>();
 
     @Override
     public void animalMoved(Animal an, Vector2d oldPosition, Vector2d newPosition){
@@ -24,17 +24,17 @@ public abstract class AbstractWorldMap implements IWorldMap {
     }
 
     @Override
-    public boolean place(Animal animal) {
+    public boolean place(Animal animal) throws IllegalArgumentException {
         if(this.canMoveTo(animal.getPosition())) {
             this.animalsList.add(animal);
             this.elementsHashMap.put(animal.getPosition(), animal);
             return true;
         }
-        return false;
+        throw new IllegalArgumentException("Animal couldn't be placed; position " + animal.getPosition().toString() + " is already occupied");
     }
 
     @Override
-    public void run(MoveDirection[] directions) {
+    public void run(MoveDirection[] directions) throws IllegalArgumentException{
         int animalsCount = this.animalsList.size();
         for(int i = 0; i < directions.length; ++i){
             this.animalsList.get(i % animalsCount).move(directions[i]);

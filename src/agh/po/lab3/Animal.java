@@ -17,20 +17,23 @@ public class Animal implements IMapElement {
         return this.direction;
     }
 
-    public void move(MoveDirection direction){
+    public void move(MoveDirection direction) throws IllegalArgumentException{
         Vector2d unitVector;
         switch(direction){
             case FORWARD: unitVector = this.direction.toUnitVector(); break;
             case BACKWARD: unitVector = this.direction.toUnitVector().opposite(); break;
             case LEFT: this.direction = this.direction.previous(); return;
             case RIGHT: this.direction = this.direction.next(); return;
-            default: return;
+            default: throw new NullPointerException("Null passed as a move function parameter");
         }
 
         Vector2d newPosition = this.position.add(unitVector);
         if(this.map.canMoveTo(newPosition)) {
             map.animalMoved(this, this.getPosition(), newPosition);
             this.position = newPosition;
+        }
+        else{
+          throw new IllegalArgumentException("Animal can't move to position " + this.position.toString());
         }
     }
 
