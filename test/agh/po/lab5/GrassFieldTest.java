@@ -26,14 +26,14 @@ public class GrassFieldTest {
     }
 
     @Test
-    public void canMoveToTest() {
+    public void canMoveTo() {
         assertTrue(testMap.canMoveTo(new Vector2d(2,-1)));
         assertTrue(testMap.canMoveTo(new Vector2d(0,0)));
         assertFalse(testMap.canMoveTo(new Vector2d(2,3)));
     }
 
     @Test
-    public void getMaxLowerLeftTest() {
+    public void getMaxLowerLeft() {
         assertEquals(new Vector2d(-10, -1), testMap.getMaxLowerLeft());
         testSubject[1].move(MoveDirection.LEFT);
         testSubject[1].move(MoveDirection.FORWARD);
@@ -52,7 +52,7 @@ public class GrassFieldTest {
     }
 
     @Test
-    public void getMaxUpperRightTest() {
+    public void getMaxUpperRight() {
         assertEquals(new Vector2d(2,5), testMap.getMaxUpperRight());
         testSubject[2].move(MoveDirection.RIGHT);
         testSubject[2].move(MoveDirection.FORWARD);
@@ -62,5 +62,20 @@ public class GrassFieldTest {
         testSubject[1].move(MoveDirection.BACKWARD);
         testSubject[1].move(MoveDirection.BACKWARD);
         assertEquals(new Vector2d(3,3), testMap.getMaxUpperRight());
+    }
+
+    @Test
+    public void isOccupied() {
+        assertTrue(testMap.isOccupied(new Vector2d(2,1)));
+        assertFalse(testMap.isOccupied(new Vector2d(4,1)));
+        assertTrue(testMap.isOccupied(new Vector2d(2,-1)));
+    }
+
+    @Test
+    public void objectAt() {
+        assertTrue(testMap.objectAt(new Vector2d(-10,5)) instanceof Animal);
+        assertTrue(testMap.objectAt(new Vector2d(2,-1)) instanceof Grass);
+        assertNull(testMap.objectAt(new Vector2d(4,1)));
+        assertNull(testMap.objectAt(new Vector2d(-1,1)));
     }
 }

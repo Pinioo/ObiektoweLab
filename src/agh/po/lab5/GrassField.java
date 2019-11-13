@@ -38,13 +38,13 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    public void animalMoved(Animal an, Vector2d oldPosition, Vector2d newPosition){
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
         Object objAtNewPosition = this.objectAt(newPosition);
         if(objAtNewPosition instanceof Grass){
             this.elementsHashMap.remove(((Grass) objAtNewPosition).getPosition());
             this.addRandGrassInSquare();
         }
-        super.animalMoved(an, oldPosition, newPosition);
+        super.positionChanged(oldPosition, newPosition);
     }
 
     @Override

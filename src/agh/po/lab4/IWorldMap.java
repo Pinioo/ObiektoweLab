@@ -2,6 +2,7 @@ package agh.po.lab4;
 
 import agh.po.lab2.*;
 import agh.po.lab3.*;
+import agh.po.lab7.IPositionChangedObserver;
 
 /**
  * The interface responsible for interacting with the map of the world.
@@ -10,7 +11,7 @@ import agh.po.lab3.*;
  * @author apohllo
  *
  */
-public interface IWorldMap {
+public interface IWorldMap extends IPositionChangedObserver {
     /**
      * Indicate if any object can move to the given position.
      *
@@ -25,14 +26,6 @@ public interface IWorldMap {
      *
      * @param (animal, oldPosition, newPosition)
      *            New position for animal.
-     */
-    void animalMoved(Animal animal, Vector2d oldPostition, Vector2d newPosition);
-
-    /**
-     * Place a animal on the map.
-     *
-     * @param animal
-     *            The animal to place on the map.
      */
     void place(Animal animal);
 
