@@ -10,13 +10,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public abstract class AbstractWorldMap implements IWorldMap{
-    LinkedList<Animal> animalsList = new LinkedList<>();
+    private LinkedList<Animal> animalsList = new LinkedList<>();
 
     HashMap<Vector2d, IMapElement> elementsHashMap = new HashMap<>();
 
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
-        IMapElement element = (IMapElement) this.objectAt(oldPosition);
+        IMapElement element = (IMapElement)this.objectAt(oldPosition);
         elementsHashMap.remove(oldPosition);
         elementsHashMap.put(newPosition, element);
     }

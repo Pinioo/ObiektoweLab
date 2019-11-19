@@ -6,14 +6,16 @@ import agh.po.lab4.MapVisualizer;
 import agh.po.lab7.MapBoundary;
 
 import javax.swing.text.html.HTMLDocument;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.Set;
 
 public class GrassField extends AbstractWorldMap {
     private int grassCount;
-    private MapBoundary boundary = new MapBoundary();
+    private MapBoundary boundary;
 
     public GrassField(int grassCount){
+        this.boundary = new MapBoundary();
         this.grassCount = grassCount;
         for(int i = 0; i < grassCount; i++)
             this.addRandGrassInSquare();
@@ -27,6 +29,9 @@ public class GrassField extends AbstractWorldMap {
             Grass newGrass = Grass.randGrassInSquare(0, (int)Math.sqrt(this.grassCount*10));
             if(this.objectAt(newGrass.getPosition()) == null) {
                 this.elementsHashMap.put(newGrass.getPosition(), newGrass);
+                this.boundary.place(newGrass.getPosition());
+                newGrass.addObserver(this);
+                newGrass.addObserver(this.boundary);
                 break;
             }
         }
@@ -34,11 +39,12 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public void place(Animal an){
-        if(objectAt(an.getPosition()) instanceof Grass){
+        Object oldObject = objectAt(an.getPosition());
+        if(oldObject instanceof Grass){
             Vector2d newGrassPosition = Vector2d.randInSquare(0, (int)Math.sqrt(this.grassCount*10));
             while(objectAt(newGrassPosition) != null)
                 newGrassPosition = Vector2d.randInSquare(0, (int)Math.sqrt(this.grassCount*10));
-            this.boundary.positionChanged(an.getPosition(), newGrassPosition);
+            ((Grass)oldObject).changePosition(newGrassPosition);
         }
         this.boundary.place(an.getPosition());
         an.addObserver(this.boundary);
@@ -53,8 +59,7 @@ public class GrassField extends AbstractWorldMap {
             Vector2d newGrassPosition = Vector2d.randInSquare(0, (int)Math.sqrt(this.grassCount*10));
             while(objectAt(newGrassPosition) != null)
                 newGrassPosition = Vector2d.randInSquare(0, (int)Math.sqrt(this.grassCount*10));
-            this.boundary.positionChanged(newPosition, newGrassPosition);
-            super.positionChanged(newPosition, newGrassPosition);
+            ((Grass)objAtNewPosition).changePosition(newGrassPosition);
         }
         super.positionChanged(oldPosition, newPosition);
     }

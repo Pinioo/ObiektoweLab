@@ -2,19 +2,18 @@ package agh.po.lab3;
 import agh.po.lab5.IMapElement;
 import agh.po.lab2.*;
 import agh.po.lab4.IWorldMap;
+import agh.po.lab7.AbstractObservedMapElement;
 import agh.po.lab7.IPositionChangedObserver;
 
 import java.util.LinkedList;
 
-public class Animal implements IMapElement {
+public class Animal extends AbstractObservedMapElement {
     private MapDirection direction = MapDirection.NORTH;
-    private Vector2d position;
     private IWorldMap map;
-    private LinkedList<IPositionChangedObserver> observersList = new LinkedList<>();
 
     public Animal(IWorldMap map, Vector2d initialPosition){
+        super(initialPosition);
         this.map = map;
-        this.position = initialPosition;
     }
 
     public MapDirection getDirection(){
@@ -39,25 +38,6 @@ public class Animal implements IMapElement {
         else{
             throw new IllegalArgumentException("Animal cannot move to position " + this.position.toString());
         }
-    }
-
-    public void addObserver(IPositionChangedObserver obs){
-        this.observersList.add(obs);
-    }
-
-    public void removeObserver(IPositionChangedObserver obs){
-        this.observersList.remove(obs);
-    }
-
-    private void positionChanged(Vector2d oldPosition, Vector2d newPosition){
-        for(IPositionChangedObserver observer : observersList){
-            observer.positionChanged(oldPosition, newPosition);
-        }
-    }
-
-    @Override
-    public Vector2d getPosition() {
-        return this.position;
     }
 
     @Override

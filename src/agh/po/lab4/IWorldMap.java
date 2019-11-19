@@ -56,9 +56,9 @@ public interface IWorldMap extends IPositionChangedObserver {
      *            The position of the object.
      * @return Object or null if the position is not occupied.
      */
+    Object objectAt(Vector2d position);
+
     Vector2d getMaxLowerLeft();
 
     Vector2d getMaxUpperRight();
-
-    Object objectAt(Vector2d position);
 }
