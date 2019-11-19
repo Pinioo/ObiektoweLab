@@ -15,7 +15,6 @@ public class Animal implements IMapElement {
     public Animal(IWorldMap map, Vector2d initialPosition){
         this.map = map;
         this.position = initialPosition;
-        this.addObserver(map);
     }
 
     public MapDirection getDirection(){

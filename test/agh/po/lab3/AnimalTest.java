@@ -2,7 +2,7 @@ package agh.po.lab3;
 
 import agh.po.lab2.MoveDirection;
 import agh.po.lab2.Vector2d;
-import agh.po.lab5.UnboundedMap;
+import agh.po.lab5.GrassField;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class AnimalTest {
 
     @Before
     public void beforeTest(){
-        testSubject = new Animal(new UnboundedMap(null), new Vector2d(2,2));
+        testSubject = new Animal(new GrassField(0), new Vector2d(2,2));
     }
 
     @Test

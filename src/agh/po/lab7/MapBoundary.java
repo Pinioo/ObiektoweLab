@@ -1,10 +1,13 @@
 package agh.po.lab7;
 
 import agh.po.lab2.Vector2d;
+import agh.po.lab4.IWorldMap;
+import agh.po.lab5.IMapElement;
 
 import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.Vector;
 
 public class MapBoundary implements IPositionChangedObserver {
     SortedSet<Vector2d> sortedByX = new TreeSet<>((Vector2d ls, Vector2d rs) -> {
@@ -23,7 +26,33 @@ public class MapBoundary implements IPositionChangedObserver {
         return 0;
     });
 
+    public Vector2d upperRight(){
+        if(sortedByX.isEmpty())
+            return new Vector2d(0,0);
+        else
+            return sortedByY.last().upperRight(sortedByX.last());
+    }
+
+    public Vector2d lowerLeft(){
+        if(sortedByX.isEmpty())
+            return new Vector2d(0,0);
+        else
+            return sortedByY.first().lowerLeft(sortedByX.first());
+    }
+
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        this.remove(oldPosition);
+        this.place(newPosition);
+    }
+
+    public void place(Vector2d position){
+        sortedByY.add(position);
+        sortedByX.add(position);
+    }
+
+    public void remove(Vector2d position){
+        sortedByX.remove(position);
+        sortedByY.remove(position);
     }
 }

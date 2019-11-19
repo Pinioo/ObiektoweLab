@@ -3,6 +3,7 @@ package agh.po.lab5;
 import agh.po.lab2.Vector2d;
 import agh.po.lab3.Animal;
 import agh.po.lab4.MapVisualizer;
+import agh.po.lab7.MapBoundary;
 
 import javax.swing.text.html.HTMLDocument;
 import java.util.LinkedList;
@@ -10,39 +11,50 @@ import java.util.Set;
 
 public class GrassField extends AbstractWorldMap {
     private int grassCount;
+    private MapBoundary boundary = new MapBoundary();
 
     public GrassField(int grassCount){
         this.grassCount = grassCount;
         for(int i = 0; i < grassCount; i++)
             this.addRandGrassInSquare();
-    }
-
-    public void addGrass(Grass toAdd) throws IllegalArgumentException{
-        if(this.objectAt(toAdd.getPosition()) != null)
-            throw new IllegalArgumentException("Grass cannot be placed at position " + toAdd.getPosition().toString());
-        this.elementsHashMap.put(toAdd.getPosition(), toAdd);
-    }
-
-    public void addGrass(Vector2d pos) throws IllegalArgumentException{
-        this.addGrass(new Grass(pos));
+        for(Vector2d pos : this.elementsHashMap.keySet()){
+            this.boundary.place(pos);
+        }
     }
 
     private void addRandGrassInSquare(){
         while(true){
             Grass newGrass = Grass.randGrassInSquare(0, (int)Math.sqrt(this.grassCount*10));
             if(this.objectAt(newGrass.getPosition()) == null) {
-                addGrass(newGrass);
+                this.elementsHashMap.put(newGrass.getPosition(), newGrass);
                 break;
             }
         }
     }
 
     @Override
+    public void place(Animal an){
+        if(objectAt(an.getPosition()) instanceof Grass){
+            Vector2d newGrassPosition = Vector2d.randInSquare(0, (int)Math.sqrt(this.grassCount*10));
+            while(objectAt(newGrassPosition) != null)
+                newGrassPosition = Vector2d.randInSquare(0, (int)Math.sqrt(this.grassCount*10));
+            this.boundary.positionChanged(an.getPosition(), newGrassPosition);
+        }
+        this.boundary.place(an.getPosition());
+        an.addObserver(this.boundary);
+        an.addObserver(this);
+        super.place(an);
+    }
+
+    @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
         Object objAtNewPosition = this.objectAt(newPosition);
         if(objAtNewPosition instanceof Grass){
-            this.elementsHashMap.remove(((Grass) objAtNewPosition).getPosition());
-            this.addRandGrassInSquare();
+            Vector2d newGrassPosition = Vector2d.randInSquare(0, (int)Math.sqrt(this.grassCount*10));
+            while(objectAt(newGrassPosition) != null)
+                newGrassPosition = Vector2d.randInSquare(0, (int)Math.sqrt(this.grassCount*10));
+            this.boundary.positionChanged(newPosition, newGrassPosition);
+            super.positionChanged(newPosition, newGrassPosition);
         }
         super.positionChanged(oldPosition, newPosition);
     }
@@ -54,23 +66,11 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public Vector2d getMaxLowerLeft() {
-        if(elementsHashMap.isEmpty())
-            throw new IllegalStateException("Max lower left cannot be found; map is empty");
-        Vector2d maxLowerLeft = new Vector2d(Integer.MAX_VALUE, Integer.MAX_VALUE);
-        for(Vector2d key : this.elementsHashMap.keySet()){
-            maxLowerLeft = key.lowerLeft(maxLowerLeft);
-        }
-        return maxLowerLeft;
+        return this.boundary.lowerLeft();
     }
 
     @Override
     public Vector2d getMaxUpperRight() {
-        if(elementsHashMap.isEmpty())
-            throw new IllegalStateException("Max upper right cannot be found; map is empty");
-        Vector2d maxUpperRight = new Vector2d(Integer.MIN_VALUE, Integer.MIN_VALUE);
-        for(Vector2d key : this.elementsHashMap.keySet()){
-            maxUpperRight = key.upperRight(maxUpperRight);
-        }
-        return maxUpperRight;
+        return this.boundary.upperRight();
     }
 }

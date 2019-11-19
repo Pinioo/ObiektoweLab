@@ -22,7 +22,6 @@ public class GrassFieldTest {
         testMap.place(testSubject[0]);
         testMap.place(testSubject[1]);
         testMap.place(testSubject[2]);
-        testMap.addGrass(new Vector2d(2,-1));
     }
 
     @Test
@@ -34,10 +33,10 @@ public class GrassFieldTest {
 
     @Test
     public void getMaxLowerLeft() {
-        assertEquals(new Vector2d(-10, -1), testMap.getMaxLowerLeft());
+        assertEquals(new Vector2d(-10, 1), testMap.getMaxLowerLeft());
         testSubject[1].move(MoveDirection.LEFT);
         testSubject[1].move(MoveDirection.FORWARD);
-        assertEquals(new Vector2d(-11, -1), testMap.getMaxLowerLeft());
+        assertEquals(new Vector2d(-11, 1), testMap.getMaxLowerLeft());
         testSubject[1].move(MoveDirection.LEFT);
         testSubject[1].move(MoveDirection.FORWARD);
         testSubject[1].move(MoveDirection.FORWARD);
